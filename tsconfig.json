@@ -15,11 +15,11 @@
     },
     "target": "es2018",
     "strict": true,
-    "module": "es2015",
+    "module": "none",
     "moduleResolution": "node", 
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*",
   ],
   "exclude": [
     "node_modules"

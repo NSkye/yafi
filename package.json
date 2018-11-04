@@ -8,6 +8,9 @@
     "lint": "tslint --project './'",
     "lint-fix": "tslint --project './' --fix"
   },
+  "_moduleAliases": {
+    "@": "dist"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NSkye/yafi.git"
@@ -20,6 +23,7 @@
   "homepage": "https://github.com/NSkye/yafi#readme",
   "devDependencies": {
     "@types/node": "^10.12.2",
+    "module-alias": "^2.1.0",
     "tslint": "^5.11.0",
     "typescript": "^3.1.6",
     "webpack-cli": "^3.1.2"

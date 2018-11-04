@@ -1,0 +1,27 @@
+{
+  "name": "yafi",
+  "version": "1.0.0",
+  "description": "Yet another Flux implementation.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "tslint --project './'",
+    "lint-fix": "tslint --project './' --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NSkye/yafi.git"
+  },
+  "author": "NSkye",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NSkye/yafi/issues"
+  },
+  "homepage": "https://github.com/NSkye/yafi#readme",
+  "devDependencies": {
+    "@types/node": "^10.12.2",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6",
+    "webpack-cli": "^3.1.2"
+  }
+}

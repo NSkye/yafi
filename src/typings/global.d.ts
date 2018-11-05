@@ -9,8 +9,8 @@ interface Action {
 
 interface AutoReducer {
   state: YafiState,
-  actions: {
-    [action: string]: (state: YafiState, action: Action | undefined) => YafiState
+  actions?: {
+    [action: string]: (state: YafiState, payload?: unknown) => YafiState
   }
 }
 

@@ -1,3 +1,4 @@
+export {}
 const normalizeReducer = require('./normalize-reducer');
 
 interface ObjectWithReducers {

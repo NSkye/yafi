@@ -38,7 +38,7 @@ describe('basic functionality', () => {
     expect(subscrCB).toHaveBeenCalledTimes(2);
   })
   
-  test('can unsubscribe from state updates', () => {
+  it('can unsubscribe from state updates', () => {
     const subscrCB = jest.fn();
     testStore.subscribe(subscrCB);
     testStore.unsubscribe(subscrCB);
@@ -47,3 +47,18 @@ describe('basic functionality', () => {
     expect(subscrCB).toHaveBeenCalledTimes(0);
   })
 });
+
+describe('multiple reducer functionality', () => {
+  it('implicitly combines reducers', () => {
+    function r1(state = { c: 1 }) { return {...state} }
+    function r2(state = { c: 2 }) { return {...state} }
+    function r3(state = { c: 3 }) { return {...state} }
+
+    const store = new Store(r1, r2, r3);
+    expect(store.state).toEqual({
+      r1: { c: 1 },
+      r2: { c: 2 },
+      r3: { c: 3 },
+    })
+  });
+})

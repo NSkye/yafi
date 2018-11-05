@@ -1,3 +1,4 @@
+export {}
 module.exports = function normalizeReducer(reducer: ClassicReducer | AutoReducer): ClassicReducer {
   const isClassicReducer: boolean = typeof reducer === 'function';
   if (isClassicReducer) {
@@ -20,7 +21,7 @@ module.exports = function normalizeReducer(reducer: ClassicReducer | AutoReducer
       return nextState;
     }
 
-    nextState = action.payload ? 
+    action.payload ? 
       autoReducer.actions[action.type](nextState, action.payload) :
       autoReducer.actions[action.type](nextState);
     

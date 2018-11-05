@@ -64,9 +64,7 @@ describe('providing actions to all reducers', () => {
     state: c1,
     actions: {
       increment(state) {
-        const newState = {...state}
-        newState.counter += 1;
-        return newState;
+        state.counter += 1;
       }
     }
   }
@@ -74,9 +72,7 @@ describe('providing actions to all reducers', () => {
     state: c2,
     actions: {
       decrement(state) {
-        const newState = {...state}
-        newState.counter -= 1;
-        return newState;
+        state.counter -= 1;
       }
     }
   }
@@ -84,14 +80,10 @@ describe('providing actions to all reducers', () => {
     state: c3,
     actions: {
       increment(state) {
-        const newState = {...state}
-        newState.counter += 1;
-        return newState;
+        state.counter += 1;
       },
       decrement(state) {
-        const newState = {...state}
-        newState.counter -= 1;
-        return newState;
+        state.counter -= 1;
       }
     }
   }

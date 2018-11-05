@@ -1,3 +1,7 @@
+export {}
+const combineReducers = require('./combine-reducers');
+const normalizeReducer = require('./normalize-reducer');
+
 type subscribtionCB = (state?: YafiState) => void;
 
 module.exports = class Store {
@@ -6,24 +10,36 @@ module.exports = class Store {
   private subscribtions: subscribtionCB[] = [];
   private actionInProgress: boolean = false;
 
-  constructor(reducer: ClassicReducer) {
-    const state: YafiState = reducer(undefined, undefined);
-    if (state === undefined) {
-      throw Error('No initial state provided!');
+  constructor(...reducers: ClassicReducer[] | AutoReducer[]) {
+    const autoCombine: boolean = reducers.length > 1;
+    if (reducers.length === 0) {
+      throw Error('Store requires at least one reducer.')
     }
-    this.state = state;
+    const reducer: ClassicReducer = !autoCombine ? 
+      normalizeReducer(reducers[0]) :
+      combineReducers([...reducers])
+    
+    const initialState: YafiState = reducer(undefined, undefined);
+    if (initialState === undefined) {
+      throw Error('No initial state provided! Reducer should return either new state or initial state.')
+    }
+    this.state = initialState;
     this.reducer = reducer;
   }
 
   public dispatch(action: Action): void {
+    if (this.actionInProgress) {
+      throw Error('Can not dispatch other actions when action in progress!')
+    }
     this.actionInProgress = true;
     const state: YafiState = this.reducer(this.state, action);
     this.state = state;
+    this.actionInProgress = false;
     this.subscribtions.map(subscribtion => {
       subscribtion(state);
     });
-    this.actionInProgress = false;
   }
+
   public do(action: Action): void {
     return this.dispatch(action);
   }

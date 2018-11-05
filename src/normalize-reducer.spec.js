@@ -13,9 +13,7 @@ it('normalizes automatic reducer', () => {
     state: { count: 0 },
     actions: {
       increment(state) {
-        let newState = {...state};
-        newState.count = state.count + 1;
-        return newState;
+        state.count = state.count + 1;
       }
     }
   }

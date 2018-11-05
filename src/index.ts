@@ -1,5 +1,4 @@
-require('module-alias/register');
-const Store = require('@/Store');
+const Store = require('./Store');
 
 const yafi = {
   Store,

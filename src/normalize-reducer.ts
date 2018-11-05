@@ -1,4 +1,9 @@
 export {};
+
+/**
+ * Приводит редьюсер к классическому функциональному виду, если он задан в виде объекта.
+ * @param reducer редьюсер
+ */
 module.exports = function normalizeReducer(reducer: ClassicReducer | AutoReducer): ClassicReducer {
   const isClassicReducer: boolean = typeof reducer === 'function';
   if (isClassicReducer) {

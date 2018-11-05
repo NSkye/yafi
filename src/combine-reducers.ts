@@ -10,6 +10,11 @@ const invalidArgsError =
   'Expected array of named functions ' +
   'or plain object';
 
+/**
+ * Вспомогательная функция для итерации через набор редьюсеров
+ * @param reducers редьюсеры, представленные либо в формате массива, либо в формате ключ-значение
+ * @param cb коллбэк вызываемый на каждом редьюсере
+ */
 function iterateThroughReducers(
   reducers: ObjectWithReducers | ClassicReducer[],
   cb: (reducer: ClassicReducer, name: string) => void,
@@ -40,6 +45,13 @@ function iterateThroughReducers(
   }
 }
 
+/**
+ * Комбинирует редьюсеры.
+ * Может комбинировать одновременно как функциональные редьюсеры, так и редьюсеры, заданные в виде обычного объекта.
+ * Задавать набор редьюсеров виде массива можно только если комбинируем функциональные редьюсеры,
+ * представленные в виде именованных функций.
+ * @param reducers редьюсеры
+ */
 module.exports = function combineReducers(reducers: ObjectWithReducers | ClassicReducer[]): ClassicReducer {
   const allReducers: Array<{ name: string, reducer: ClassicReducer }> = [];
 

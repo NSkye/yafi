@@ -1,4 +1,4 @@
-export {}
+export {};
 const Store = require('./Store');
 const combineReducers = require('./combine-reducers');
 const normalizeReducer = require('./normalize-reducer');
@@ -6,7 +6,7 @@ const normalizeReducer = require('./normalize-reducer');
 const yafi = {
   Store,
   combineReducers,
-  normalizeReducer
+  normalizeReducer,
 };
 
 module.exports = yafi;

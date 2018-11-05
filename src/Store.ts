@@ -1,4 +1,4 @@
-export {}
+export {};
 const combineReducers = require('./combine-reducers');
 const normalizeReducer = require('./normalize-reducer');
 
@@ -13,15 +13,15 @@ module.exports = class Store {
   constructor(...reducers: ClassicReducer[] | AutoReducer[]) {
     const autoCombine: boolean = reducers.length > 1;
     if (reducers.length === 0) {
-      throw Error('Store requires at least one reducer.')
+      throw Error('Store requires at least one reducer.');
     }
-    const reducer: ClassicReducer = !autoCombine ? 
+    const reducer: ClassicReducer = !autoCombine ?
       normalizeReducer(reducers[0]) :
-      combineReducers([...reducers])
-    
+      combineReducers([...reducers]);
+
     const initialState: YafiState = reducer(undefined, undefined);
     if (initialState === undefined) {
-      throw Error('No initial state provided! Reducer should return either new state or initial state.')
+      throw Error('No initial state provided! Reducer should return either new state or initial state.');
     }
     this.state = initialState;
     this.reducer = reducer;
@@ -29,7 +29,7 @@ module.exports = class Store {
 
   public dispatch(action: Action): void {
     if (this.actionInProgress) {
-      throw Error('Can not dispatch other actions when action in progress!')
+      throw Error('Can not dispatch other actions when action in progress!');
     }
     this.actionInProgress = true;
     const state: YafiState = this.reducer(this.state, action);

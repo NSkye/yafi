@@ -51,6 +51,10 @@ module.exports = class Store {
     }
     this.actionInProgress = true;
     const state: YafiState = this.reducer(this.state, action);
+    if (typeof state !== 'object' || state === null) {
+      const errorMSG = `Reducer should return state object. Got [${state}] (${typeof state}) instead.`;
+      throw Error(errorMSG);
+    }
     this.state = state;
     this.actionInProgress = false;
     this.subscribtions.map(subscribtion => {

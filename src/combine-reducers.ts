@@ -64,6 +64,11 @@ module.exports = function combineReducers(reducers: ObjectWithReducers | Classic
 
     allReducers.map(r => {
       newState[r.name] = r.reducer(state[r.name] as YafiState | undefined, action);
+      if (typeof newState[r.name] !== 'object' || newState[r.name] === null) {
+        const errorMSG = 'Reducer should return state object. ' +
+        `Got [${newState[r.name]}] (${typeof newState[r.name]}) instead in reducer '${r.name}'.`;
+        throw Error(errorMSG);
+      }
     });
 
     return newState;

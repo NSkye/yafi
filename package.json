@@ -3,12 +3,8 @@
   "version": "1.0.0",
   "description": "Yet another Flux implementation.",
   "main": "index.js",
-  "scripts": {
-    "build": "tsc",
-    "test": "jest",
-    "lint": "tslint --project './'",
-    "lint-fix": "tslint --project './' --fix"
-  },
+  "types": "./module.d.ts",
+  "scripts": {},
   "_moduleAliases": {
     "@": "dist"
   },

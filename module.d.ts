@@ -1,13 +1,13 @@
-interface Action {
+export interface Action {
   type: string,
   payload?: { [name: string]: any }
 }
 
-interface State {
+export interface State {
   [property: string]: any
 }
 
-interface StoreInstance {
+export interface StoreInstance {
   state: State,
   dispatch: (action: Action) => void,
   do: (action: Action) => void,
@@ -15,19 +15,26 @@ interface StoreInstance {
   unsubscribe: (callback: (state?: State) => void) => void
 }
 
-interface AutoReducer {
+export interface AutoReducer {
   state: State,
   actions: {
     [name: string]: (state, payload?: { [name: string ]: any }) => void
   }
 }
 
-type ClassicReducer = (state: State, action?: Action) => State
+export type ClassicReducer = (state: State, action?: Action) => State
 
-export namespace yafi {
-  export interface Store {
+export interface yafi {
+  Store: {
     new (reducer: AutoReducer): StoreInstance
     new (...reducer: ClassicReducer[]): StoreInstance
-  }
+  },
+  combineReducers: (...reducers: ClassicReducer[]) => ClassicReducer,
+  combineReducers: (reducers: { [name: string]: ClassicReducer | AutoReducer }) => ClassicReducer,
+  normalizeReducer: (reducer: ClassicReducer | AutoReducer) => ClassicReducer
+}
+
+declare module './index.js' {
+  export default yafi
 }
 

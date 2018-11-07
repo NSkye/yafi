@@ -1,40 +1,37 @@
-export interface Action {
-  type: string,
-  payload?: { [name: string]: any }
-}
-
-export interface State {
+interface YafiState {
   [property: string]: any
 }
 
-export interface StoreInstance {
-  state: State,
-  dispatch: (action: Action) => void,
-  do: (action: Action) => void,
-  subscribe: (callback: (state?: State) => void) => void,
-  unsubscribe: (callback: (state?: State) => void) => void
+interface YafiAction {
+  type: string,
+  payload?: { [item: string]: any }
 }
 
-export interface AutoReducer {
-  state: State,
-  actions: {
-    [name: string]: (state, payload?: { [name: string ]: any }) => void
+type ClassicReducer = (state: YafiState, action: YafiAction) => YafiState
+interface AutoReducer {
+  state: YafiState,
+  actions?: {
+    [type: string]: (state: YafiState, payload?: { [item: string]: any }) => void
   }
 }
 
-export type ClassicReducer = (state: State, action?: Action) => State
+interface YafiStore {
+  readonly state: YafiState,
+  dispatch: (action: YafiAction) => void,
+  do: (action: YafiAction) => void,
+  subscribe: (callback: (state: YafiState) => void) => void,
+  unsubscribe: (callback: (state: YafiState) => void) => void,
+}
 
-export interface yafi {
+interface Yafi {
   Store: {
-    new (reducer: AutoReducer): StoreInstance
-    new (...reducer: ClassicReducer[]): StoreInstance
+    new (...reducers: ClassicReducer[] | [AutoReducer]): YafiStore
   },
-  combineReducers: (...reducers: ClassicReducer[]) => ClassicReducer,
-  combineReducers: (reducers: { [name: string]: ClassicReducer | AutoReducer }) => ClassicReducer,
+  combineReducers: (...reducers: [{ [reducerName: string]: ClassicReducer | AutoReducer }] | ClassicReducer[]) => ClassicReducer,
   normalizeReducer: (reducer: ClassicReducer | AutoReducer) => ClassicReducer
 }
 
-declare module './index.js' {
-  export default yafi
+declare module 'yafi' {
+  const y: Yafi;
+  export default y;
 }
-
